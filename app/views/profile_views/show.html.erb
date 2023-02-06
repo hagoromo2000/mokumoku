@@ -1,0 +1,38 @@
+<div class="card">
+  <!-- Card header -->
+  <div class="card-header">
+    <h3 class="mb-0">プロフィール</h3>
+  </div>
+  <!-- Card body -->
+  <div class="card-body">
+    <%= form_with model: @user, url: mypage_profile_path do |f|  %>
+      <div class="d-lg-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center mb-4 mb-lg-0">
+          <%= image_tag @user.decorate.avatar, class: 'avatar-xl rounded-circle' %>
+          <% if current_user.following?(@user) %>
+            <%= link_to "フォローを外す", user_relationship_path(@user.id), method: :delete %>
+          <% else %>
+            <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <hr class="my-5">
+    <div>
+      <h4 class="mb-0">Personal Details</h4>
+      <!-- Form -->
+      <div class="mb-3">
+        <h5>Name</h5>
+        <p><%= @user.name %></p>
+      </div>
+      <div class="mb-3">
+        <h5>Hobby</h5>
+        <p><%= @user.hobby %></p>
+      </div>
+      <div class="mb-3">
+        <h5>Profile</h5>
+        <p><%= @user.profile %></p>
+      </div>
+    </div>
+  </div>
+</div>
