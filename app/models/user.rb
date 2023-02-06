@@ -86,7 +86,9 @@ class User < ApplicationRecord
   end
 
   def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy!
+    relation = relationships&.find_by(followed_id: user_id)
+    return unless relation
+    relation.destroy
   end
 
   # フォローしているか判定
